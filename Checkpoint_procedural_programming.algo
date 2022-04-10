@@ -1,0 +1,111 @@
+// Algorithm, Name: Dot product
+// Description:
+// Write a procedure, called dot_product which calculates in the variable ps, the dot(scalar) product of v1 and v2 (v1 and v2 are vectors of IR)
+// Write an algorithm which determines, for n pairs of given vectors, whether two vectors of given IR are orthogonal, by calling the procedure defined in the previous question. The dot product of two orthogonal vectors is zero.
+// Modify the previous algorithm if you use a dot_product function instead of a procedure.
+// Instructions
+// While creating your algorithm, you should: 
+
+    // Use array for presenting the vector.
+    // Use nested loop (a loop inside another)
+    // Use different types of passing parameters
+
+    // Solution
+        //Dot product of 2 vectors: 
+        //  a = [a1, a2, …, an] 
+        //  and 
+        //  b = [b1, b2, …, bn] 
+        //  is a.b = a1*b1 + a2*b2 +....+ an*bn
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //PROCEDURE, in/out mode, pass by reference
+    PROCEDURE Dot_product_proc(v1,v2: ARRAY_OF FLOAT, VAR ps:FLOAT)
+    VAR 
+        i : INTEGER;
+    BEGIN
+        FOR i FROM 0 TO v1.length-1 STEP 1  DO
+            ps := ps + v1[i]*v2[i];
+        END_FOR
+    END
+    /////////////////////////////////////////////////////////////////
+        //FUNCTION
+    FUNCTION Dot_product_funct(v1,v2 : ARRAY_OF FLOAT) : FLOAT
+    VAR
+        i : INTEGER;
+        ps : FLOAT := 0 ;
+    BEGIN
+        FOR i FROM 0 TO v1.length-1 STEP 1 DO
+            ps := ps + v1[i]*v2[i]
+        END_FOR
+        RETURN ps ;
+    END
+
+
+//Main Algorithm Procedure
+ALGORITHM Dot_product_procedure
+VAR
+    i, j, n, m : INTEGER;
+    product : FLOAT:=0;
+    vector : ARRAY_OF FLOAT[10][10];
+
+BEGIN
+    //read length
+        REPEAT
+            Write ("Enter an even number > 1 : \n")
+            Read (n);
+        UNTIL (n>1 AND n<= 10 AND n % 2 =0)
+        REPEAT
+            Write ("Enter a positive number : \n")
+            Read (m);
+        UNTIL (m>1 AND m<= 10);
+    //read vector
+    FOR i FROM 0 TO n STEP 1  DO
+        FOR j FROM 0 TO m STEP 1  DO
+            Read(vectors[i][j]);
+        END_FOR
+    END_FOR
+    //process
+    FOR i FROM 0 TO n STEP 2 DO
+        Dot_product_proc(vectors[i], vectors[i+1],product);
+        IF (product = 0) THEN
+            Write("Orthogonal, because dot product of vectors is 0.");
+        ELSE 
+            Write("Vectors are not orthogonal.")
+        END_IF
+    END_FOR 
+
+END
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Main Algorithm Function
+ALGORITHM Main_Algorithm_Function
+VAR
+    vector : ARRAY_OF FLOAT[10][10];
+    i, j, n, m : INTEGER;
+    result : FLOAT;
+BEGIN
+    //read length
+        REPEAT
+            Write ("Enter an even number > 1 : \n")
+            Read (n);
+        UNTIL (n>1 AND n<= 10 AND n % 2 =0)
+        REPEAT
+            Write ("Enter a positive number : \n")
+            Read (m);
+        UNTIL (m>1 AND m<= 10);
+    //read vector
+    FOR i FROM 0 TO n STEP 1  DO
+        FOR j FROM 0 TO m STEP 1  DO
+            Read(vectors[i][j]);
+        END_FOR
+    END_FOR
+    //process
+    FOR i FROM 0 TO n STEP 2 DO
+        result = Dot_product_funct(vector[i], vector[i+1]);
+        IF (result = 0) THEN
+            Write("Orthogonal, because dot product of vectors is 0.");
+        ELSE 
+            Write("Vectors are not orthogonal.")
+        END_IF
+    END_FOR 
+END
